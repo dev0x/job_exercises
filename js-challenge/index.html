@@ -1,0 +1,334 @@
+<!DOCTYPE HTML>
+<html lang="en"> 
+<head> 
+	<title>JavaScript Challenge Questions</title> 
+	<meta name="keywords" content="HTML,CSS,XML,JavaScript" />
+	<meta name="author" content="Matt Racine"/>
+	<meta charset="UTF-8" />
+	<link type="text/css" href="css/jquery-ui-1.8.7.custom.css" rel="stylesheet" /> 
+	<link type="text/css" href="css/test.css" rel="stylesheet" />
+
+	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script> 
+	<script type="text/javascript" src="js/jquery-ui-1.8.7.custom.min.js"></script>
+	<script type="text/javascript" src="js/js-test.js"></script>
+	</head>
+
+<body>
+<div class="question">
+		<p>Instructions
+		 ------------
+			1. Put code in the javascript file: js-test.js
+			2. The javascript file should contain the working solutions. If for testing purposes you create further javascript use another file or within a html file
+			3. Test your code.
+			4. Your code doesn't need to be robust; leave out try-catch blocks and validation code.  Just solve the problem cleanly.
+			5. Feel free to use any available resources.
+		</p>
+</div>
+<div class="question">
+
+	<h3>	Question 1</h3>
+<pre>filterValuesByKeys() takes in an object of key/value pairs and
+a filter function that accepts one argument and returns a Boolean.
+
+It returns an array containing the *values* from the object for
+which filter(*key*) is true.  The array is in no particular order.</pre>
+
+<div id="q1data" class="questionData"></div>
+<div id="q1return" class="questionReturn"></div>
+<div id="q1answer" class="questionAnswer">Answer Here</div>
+
+<script type="text/javascript">
+	var keyValues = { hello: "world"
+			, goodbye: "cruelworld"
+			, sup: "dude"
+			, gutentag: "mien fuhrer"
+			, hello1: "meep"
+			, sups: "dudes"
+			, eight: "ball"
+			, goodbye1: "bye now"
+		};
+	var keyValues1 = { 1:{hello: "world", id:0}
+			, 22:{goodbye: "cruelworld", id:1}
+			, 13:{sup: "dude", id:2}
+			, 41:{gutentag: "mien furher", id:3}
+			, 25:{ hello1: "meep", id:4}
+			, 36:{sups: "dudes", id:5}
+			, 57:{eight: "ball", id:6}
+			, 84:{goodbye: "bye now", id:7}
+	};
+
+	var key = 'eight';
+
+	//should output the data that I provide here onto the page 
+	var output ="";
+	for(mydata in keyValues){
+		output=output+"key:"+mydata+" value:"+keyValues[mydata]+"</br>";
+	}
+
+	var domElement = document.getElementById("q1data");
+	domElement.innerHTML=output;
+
+	function doQ1(inVar) {
+					key = inVar;
+		var varText = filterValuesByKeys(keyValues, filter);
+		$('#q1answer').html(varText.toString());
+	  
+	}
+</script>
+
+<div id="buttonsomg">
+<BUTTON type="button" name="question1" onClick="doQ1('hello')">hello</button>
+<BUTTON type="button" name="question1" onClick="doQ1('goodbye')">goodbye</button>
+<BUTTON type="button" name="question1" onClick="doQ1('sup')">sup</button>
+<BUTTON type="button" name="question1" onClick="doQ1('gutentag')">gutentag</button>
+<BUTTON type="button" name="question1" onClick="doQ1('hello1')">hello1</button>
+<BUTTON type="button" name="question1" onClick="doQ1('sups')">sups</button>
+<BUTTON type="button" name="question1" onClick="doQ1('eight')">eight</button>
+<BUTTON type="button" name="question1" onClick="doQ1('goodbye1')">goodbye1</button>
+<script type="text/javascript">
+	$("button").button();
+</script>
+</div>
+</div>
+<div class="question">
+	<h3>Question 2</h3>
+
+<p>Implement and explain this function:
+ buildBoundsDetector() takes numeric upper and lower bounds
+ and returns a function that accepts a single numeric argument
+ and returns true if the argument is inside the bounds and
+ false if it is outside.  In other words, it could be used like this:
+     var isPercentage = buildBoundsDetector( 0, 100 );
+     if ( isPercentage(4) ) { ...
+
+ Use  &lt;= and  &gt;= for the comparisions.
+
+</p>
+<p class="q2" style="border:dotted; border-width:1px">If value is within bounds, it will replace this text and appear here</p>
+<script type="text/javascript">
+	function checkQ2(){
+		value = parseInt($('#question2').val());
+		lowerBound = parseInt($('#lowerBound').val());
+		upperBound = parseInt($('#upperBound').val());
+
+		if(isNaN(value) || isNaN(lowerBound) || isNaN(upperBound)){
+			alert("Not a valid number for any of the bounds values, re-enter");
+			console.log(value);
+			console.log(lowerBound);
+			console.log(upperBound);
+			return;
+		}
+
+		if(lowerBound > upperBound){
+			alert("lowerbound:"+lowerBound+" is greater than the upperbound:"
+				+upperBound+", re-enter correct values.\n\n example:  From 100 to 0 is an empty set");
+			return;
+		}
+		var isPercentage = buildBoundDetector(lowerBound, upperBound);
+		if (isPercentage(value)){
+			$("p.q2").text(value);
+		} else {
+			$("p.q2").text("out of bounds");
+		}
+	}
+</script>
+<p>Range Between <input type=text id="lowerBound" value=0 size=3/> and <input type=text id="upperBound" value=100 size=3/></p>
+<input type=text id="question2">
+<button type="button" name="question2" onClick="checkQ2()">check if value within bounds</button>
+
+</div>
+<div class="question">
+	<h3>Question 3</h3>
+<p> This function should create a 2 dimension array pre-populated
+ with zeros.  The output appears correct, but it has a bug.
+  Explain what's wrong and fix it.
+
+	<pre>
+	 function defaultMatrix( size ) {  // returns array
+		var defaultValue = 0;
+		var row = [];
+		var matrix = [];
+		for ( var i=0; i  &lt; size; i++) { row.push( defaultValue ); }
+		for ( var i=0; i  &lt; size; i++) { matrix.push( row ); }
+		return matrix;
+	 }
+	</pre>
+</p>
+<script type="text/javascript">
+	function suppliedCode( size ) {  // returns array
+		var defaultValue = 0;
+			var row = [];
+			var matrix = [];
+			for ( var i=0; i < size; i++) { row.push( defaultValue ); }
+			for ( var i=0; i < size; i++) { matrix.push( row ); }
+			return matrix;
+	}
+
+	function matrixPretty(matrix){
+		var txtPretty = '';
+		for(var i=0; i < matrix.length; i++){
+			for(var j=0; j < matrix[i].length; j++){
+				txtPretty = txtPretty+' '+matrix[i][j];
+			}
+			txtPretty = txtPretty+'\n';
+		}
+		return txtPretty;
+	}
+		
+	function doQ3( inSize ){
+		var testArray = suppliedCode(inSize);
+		var format = matrixPretty(testArray);
+		alert(format);
+	}
+
+	function doFixed(inSize){
+		var testArray = defaultMatrix(inSize);
+		var formatted = matrixPretty(testArray);
+		alert(formatted);
+	}
+
+</script>
+<p>Following set of numbers shows that its not creating a 2D array, its creating a matrix</p>
+<BUTTON type="button" name="question3" onClick="doQ3(1)">1</button>
+<BUTTON type="button" name="question3" onClick="doQ3(2)">2</button>
+<BUTTON type="button" name="question3" onClick="doQ3(3)">3</button>
+<BUTTON type="button" name="question3" onClick="doQ3(4)">4</button>
+<BUTTON type="button" name="question3" onClick="doQ3(5)">5</button>
+<BUTTON type="button" name="question3" onClick="doQ3(6)">6</button>
+<BUTTON type="button" name="question3" onClick="doQ3(7)">7</button>
+<BUTTON type="button" name="question3" onClick="doQ3(8)">8</button>
+<BUTTON type="button" name="question3" onClick="doQ3(9)">9</button>
+<p>Following set of numbers creates a 2D array</p>
+<BUTTON type="button" name="question3" onClick="doFixed(1)">1</button>
+<BUTTON type="button" name="question3" onClick="doFixed(2)">2</button>
+<BUTTON type="button" name="question3" onClick="doFixed(3)">3</button>
+<BUTTON type="button" name="question3" onClick="doFixed(4)">4</button>
+<BUTTON type="button" name="question3" onClick="doFixed(5)">5</button>
+<BUTTON type="button" name="question3" onClick="doFixed(6)">6</button>
+<BUTTON type="button" name="question3" onClick="doFixed(7)">7</button>
+<BUTTON type="button" name="question3" onClick="doFixed(8)">8</button>
+<BUTTON type="button" name="question3" onClick="doFixed(9)">9</button>
+<BUTTON type="button" name="question3" onClick="doFixed('moo')">moo</button>
+<script type="text/javascript">
+	$("button").button();
+</script>
+
+</div>
+<div class="question">
+	<h3>Question 4</h3>
+<p>Because JavaScript object-oriented terminology
+is not standardized
+
+Definitions: A "constructor" is a
+function designed to be called with the "new"
+operator.  A "class" is a "constructor" with
+functions defined on its prototype, and these
+functions are refered to as "methods".  A
+constructor is said to build an "instance" of
+the class. A "sub-class" is a class with prototype
+that is an instance of another class.
+
+We have the following class definition:
+</p>
+<pre>
+	function Bird( speciesName, isMale, daysSinceBirth ) {
+		this.speciesName = speciesName || 'unknown';
+		this.daysSinceBirth = Number(daysSinceBirth) || 0;
+		this.isMale = Boolean( isMale );
+	}
+	Bird.prototype.call = function() {
+		alert( 'twitter!' );
+		return this;
+	}
+	Bird.prototype.fly = function() {
+		alert( 'flap!' );
+		return this;
+	}
+	Bird.prototype.panic = function() {
+		this.call().call().fly().fly();
+	}
+</pre>
+ <p>
+ Sub-class Bird() to create a Duck() class such that:
+ 1. the constructor does not have a speciesName argument.
+ 2. every duck has a speciesName attribute equal to 'duck'.  
+ 3. the constructor calls the Bird() constructor in order to re-use the "defaulting" logic.
+ 4. call() is overidden to display 'quack!'.
+ 5. a call to panic() shows four alert boxes: quack! quack! flap! flap!
+
+ Override as few methods as possible.  Try to implement
+ methods at the class level instead of the instance level.
+</p>
+<script type="text/javascript">
+
+	var sparrow = new Bird('sparrow', false, 10);
+	var ducky = new Duck(1, true, 12);
+
+</script>
+<button type="button" name="Mr. duck" onClick="ducky.panic()">Duck Panic</button>
+<button type="button" name="Mrs. sparrow" onClick="sparrow.panic()">Sparrow Panic</button>
+<script type="text/javascript">
+	$("button").button();
+</script>
+
+
+</div>
+<div class="question">
+	<h3>Question 5</h3>
+	<p>This block of code exhibits some interesting features:</p>
+	<pre>
+		if ( typeof test == 'undefined' ) { test = {}; }
+		test.workbench = test.workbench || {};
+		test.workbench.application = (function() {
+			// private
+			var currentId = 0;
+			var idPrefix = 'test-workbench-application';
+			// public
+			function getNextId() {
+				currentId++;
+				return ( idPrefix + currentId );
+			}
+
+			return {
+				getNextId: getNextId
+			}
+		})();
+	</pre>
+   <p>No need for code, just answer these questions:
+   1. What's the purpose of the first three lines?
+   2. What does (function() {...})(); do, and why is it important?
+   3. What makes currentId "private" while getNextId() is "public?"</p>
+	<p>1. Purpose of the first three lines is to set up a test.workbench.application function that is self-invoking
+	2. (function() {<stuff>})(); is a self-involking function and after the function terminates the variables are discarded. This creates application scope, leading into next question...
+	3. Variables in that function are inaccessible but calling test.workbench.application.getNextId() would infact still be able to access that data
+	</p>
+</div>
+<div class="question">
+	<h3>Question 6</h3>
+	<p>
+		When a block of HTML is loaded via AJAX, script tags embedded in it are
+		not automatically run, even if the HTML block is inserted into the document.
+		Write a function that accepts a HTML DOM Document object (which has the
+		same functionality of the global "document" object) and runs all
+		the script tags in the document.  You only need to handle embedded
+		scripts, not external scripts.
+	</p>
+	<script type='text/javascript'>
+        function addScript(){
+			var str = '<script type="text/javascript">alert("div added and the script has been executed");<\/script>';
+			var newdiv = document.createElement('div');
+			newdiv.innerHTML = str+"yarr, there be scripts here";
+			document.getElementById('target').appendChild(newdiv);
+			var scriptElements = document.getElementsByTagName('script');
+			for (var i = 0; i < scriptElements.length; i++){
+				if(scriptElements[i].type == 'text/javascript')
+				eval(scriptElements[i].innerHTML);
+			}
+
+		}
+	</script>
+<input type="button" value="add a div to the page and show alert" onclick="addScript()"/>
+<div id="target"></div>
+</div>
+</body>
+</html>
